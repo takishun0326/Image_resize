@@ -5,7 +5,7 @@ from tkinter import *
 import os, sys
 
 class Frame:
-
+    # フォルダのパス選択
     def make_dialog(self, is_input):
         iDir = os.path.abspath(os.path.dirname(__file__))
         iDirPath = filedialog.askdirectory(initialdir = iDir)
@@ -14,12 +14,68 @@ class Frame:
             self.input_pass_entry_var.set(iDirPath)
         else :
             self.output_pass_entry_var.set(iDirPath)
+    
+    # 終了
+    def pushed_exit(self):
+        self.main_win.destroy()
 
+    # 続行
+    def destroy_frame2(self):
+        self.frame2.destroy()
+
+
+    # プログレスバーの最大値の設定
+    def set_progress_maximum(self, max_value):
+        self.max_value = max_value
+        self.progress.configure(maximum=self.max_value, value=0)
+
+    # プログレスバーの経過の更新
+    def update_progress(self, current_value):
+        self.current_value = current_value
+        self.current_count.set(str(self.ccurrent_value))
+        self.progress.configure(value=self.current_value)
+
+    # Frame2
     def make_frame2(self):
 
         self.frame2 = ttk.Frame(self.main_win, padding=10)
 
         
+
+        # プログレスバー
+        self.progress = ttk.Progressbar(self.main_win, orient='horizontal', length=200, mode='determinate')
+        
+        
+        self.current_count = StringVar()
+        self.current_count.set("0")
+        self.current_count_label = tk.Label(textvariable=self.current_count)
+
+        self.maximum_count = StringVar()
+        self.maximum_count.set(str(self.max_value))
+        self.maximum_count_label = tk.Lavel(textvariable=self.maximum_count)
+
+        # continue
+        self.continue_button = tk.Button(self.frame2, text='続行', command=destroy_frame1)
+        
+        # exit
+        self.exit_button = tk.Button(self.frame2, text='終了', command=pushed_exit)
+
+
+        # frame
+        self.frame2.grid(row=0, column=0)
+
+        # widget
+        self.progress.grid(row=0, column=0)
+        self.current_count_label.grid(row=1, column=1)
+        self.maximum_count_label.grid(row=1, column=3)
+
+        self.continue_button.grid(row=2, column=1)
+        self.exit_button.grid(row=2, column=3)
+
+
+
+        # frame2を最前面にする
+        self.frame2.tkraise()
         
 
     def __init__(self, main_win):
