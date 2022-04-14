@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog
 from tkinter import *
 from PIL import ImageGrab, Image
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 
 import os, sys
 
