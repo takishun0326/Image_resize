@@ -1,4 +1,7 @@
-# Image_resize
+# Image_resize GUI
+
+tkinterのGUIを使用
+
 ## 実行環境
 * python3
 * pillow 8.4.0
